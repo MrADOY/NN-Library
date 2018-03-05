@@ -10,33 +10,30 @@ class Matrix(object):
         self.cols = cols
         self.values = [[0 for _ in range(cols)] for _ in range(rows)]
 
+    def __str__(self):
+        return "{}".format(self.values)
+
     def randomize(self):
         """Initialize matriw with random values"""
         for i in range(self.rows):
             for j in range(self.cols):
                 self.values[i][j] = int(rd.uniform(0, 10))
 
-    def multiply(self, n):
-        """Mutiply all the values by n if n is a value
-        or do the dot product if n if a matrix"""
-
-        if isinstance(n, Matrix):
-            if self.cols != n.rows:
-                print('Columns of A must match rows of B')
-                return
-            else:
-                result = Matrix(n.rows, self.cols)
-                for i in range(self.rows):
-                    for j in range(self.cols):
-                        s = 0
-                        for k in range(self.cols):
-                            s += self.values[i][k] * n.values[k][j]
-                        result.values[i][j] = s
-                return result
+    @staticmethod
+    def multiply(m1, m2):
+        """return new matrix with dot product of m1 & m2"""
+        if m1.cols != m2.rows:
+            print('Columns of A must match rows of B')
+            return
         else:
-            for i in range(self.rows):
-                for j in range(self.cols):
-                    self.values[i][j] *= n
+            result = Matrix(m1.rows, m2.cols)
+            for i in range(result.rows):
+                for j in range(result.cols):
+                    s = 0
+                    for k in range(m1.cols):
+                        s += m1.values[i][k] * m2.values[k][j]
+                    result.values[i][j] = s
+            return result
 
     def addition(self, n):
         """Add to all the values n if n is a value
@@ -59,3 +56,10 @@ class Matrix(object):
             for j in range(self.cols):
                 result.values[i][j] = self.values[j][i]
         return result
+
+    def map(self, f):
+        """Apply function to each element of m"""
+        for i in range(self.rows):
+            for j in range(self.cols):
+                val = self.values[i][j]
+                self.values[i][j] = f(val)
