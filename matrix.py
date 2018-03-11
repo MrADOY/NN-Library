@@ -17,7 +17,7 @@ class Matrix(object):
         """Initialize matriw with random values"""
         for i in range(self.rows):
             for j in range(self.cols):
-                self.values[i][j] = int(rd.uniform(0, 10))
+                self.values[i][j] = rd.uniform(-1, 1)
 
     @staticmethod
     def multiply(m1, m2):
@@ -63,3 +63,19 @@ class Matrix(object):
             for j in range(self.cols):
                 val = self.values[i][j]
                 self.values[i][j] = f(val)
+
+    @staticmethod
+    def fromArray(arr):
+        """Convert a array to a matrix object"""
+        m = Matrix(len(arr), 1)
+        for i in range(len(arr)):
+            m.values[i][0] = arr[i]
+        return m
+
+    def toArray(self):
+        """Convert a matrix object to a array"""
+        arr = []
+        for i in range(self.rows):
+            for j in range(self.cols):
+                arr.append(self.values[i][j])
+        return arr
