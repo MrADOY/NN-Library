@@ -3,7 +3,7 @@ import random as rd
 
 class Matrix(object):
     """Represent a matrix , mainly to perform matrix operations"""
-test
+
     def __init__(self, rows, cols):
         """Initialize the matrix (rows x cols) with 0 """
         self.rows = rows
